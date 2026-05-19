@@ -26,22 +26,22 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Set deploy path
+      - name: Set deploy target
         id: deploy
         run: |
           if [ "${{ github.ref_name }}" = "main" ]; then
-            echo "path=/var/www/triody.ink" >> $GITHUB_OUTPUT
+            echo "target=/var/www/triody.ink" >> $GITHUB_OUTPUT
           else
-            echo "path=/var/www/dev.triody.ink" >> $GITHUB_OUTPUT
+            echo "target=/var/www/dev.triody.ink" >> $GITHUB_OUTPUT
           fi
 
-      - name: Deploy to server
-        uses: easingthemes/ssh-deploy@v5
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.9.1
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "-rlgoDz -v --delete"
-          SOURCE: "out/"
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_PORT: ${{ secrets.SSH_PORT }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: ${{ steps.deploy.outputs.path }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy via rsync
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          rsync -rlgoDz --delete -e "ssh -p ${{ secrets.SSH_PORT }}" out/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ steps.deploy.outputs.target }}
