@@ -16,6 +16,9 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Triody — 10x Your Business with Agents",
     description: "Triody deploys AI agents that 10x your business. 15-minute diagnostic. One-week deployment. Ten-year guarantee."
+  },
+  icons: {
+    icon: "/favicon.svg",
   }
 };
 
