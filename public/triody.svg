@@ -1,0 +1,12 @@
+<svg width="300" height="60" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 15H28L8 53H0L12 15Z" fill="#111"/>
+  <path d="M30 15H14L34 53H42L30 15Z" fill="#111"/>
+  <path d="M54 15H68L46 53H32L54 15Z" fill="#111"/>
+  <path d="M70 15H84L62 53H48L70 15Z" fill="#111"/>
+  <path d="M96 15H112L96 53H80L96 15Z" fill="#111"/>
+  <rect x="130" y="15" width="12" height="38" fill="#111"/>
+  <rect x="156" y="15" width="12" height="38" fill="#111"/>
+  <path d="M190 15H210L184 53H164L190 15Z" fill="#111"/>
+  <rect x="222" y="15" width="12" height="38" fill="#111"/>
+  <path d="M248 53V15H264L282 42.5V15H296V53H280L262 25.5V53H248Z" fill="#111"/>
+</svg>
