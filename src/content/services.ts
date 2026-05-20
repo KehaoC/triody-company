@@ -32,16 +32,27 @@ export const services: ServiceItem[] = [
     ],
   },
   {
-    slug: "10year-service",
-    title: "10-Year Quality Guarantee",
+    slug: "3hour-training",
+    title: "3-Hour Agent Internal Training",
     description:
-      "A decade of continuous optimization and support — 10x the industry commitment.",
+      "On-site enterprise training that empowers every employee to master AI agents — boosting productivity and career growth.",
     body: [
-      "Most AI agencies disappear after deployment. We stay for ten years.",
-      "AI doesn't stand still, and neither do we. Our 10-year guarantee means continuous monitoring, proactive model updates, and ongoing optimization as the technology evolves. When GPT-7 drops, your agents are upgraded before you even ask.",
-      "This includes dedicated support, regular performance reviews, and a commitment to keep your automation running at peak efficiency. If something breaks at 3 AM, we fix it. If a new model could cut your costs by 30%, we deploy it.",
-      "The typical agency retainer lasts 6–12 months and covers surface-level maintenance. Our guarantee spans a decade and covers everything — from emergency fixes to strategic upgrades. That's 10x the commitment.",
-      "We can offer this because our agents work. They get better over time, not worse. Ten years isn't a sales promise — it's a natural consequence of building things right the first time.",
+      "Companies invest in AI agents, but adoption fails when employees feel threatened rather than empowered. Our 3-hour on-site training solves this by turning every employee into a capable, confident agent user.",
+      "This isn't a generic demo. We teach your team the universal framework for working with agents — effective prompting, output verification, workflow integration — all tailored to your company's specific use cases and existing agent setup. Every minute is relevant to their actual daily work.",
+      "The outcome goes beyond productivity metrics. Employees leave with a marketable skill that future-proofs their career, transforming resistance into enthusiasm. When people feel agents make them more valuable — not replaceable — adoption follows naturally.",
+      "One 3-hour session. Every employee equipped. Efficiency and well-being addressed in a single morning.",
+    ],
+  },
+  {
+    slug: "meta-agent",
+    title: "Meta-Agent",
+    description:
+      "An agent that builds your agent system — dedicated consulting included, $3,000/month.",
+    body: [
+      "Most transformation leaders know exactly what agents they need — but lack the technical resources to build and maintain them. Meta-Agent is the answer: an agent that builds agents, so you don't need an engineering team.",
+      "You describe the problem in plain language. Meta-Agent handles the rest — understanding requirements, scaffolding the system, testing in your environment, deploying to production. What would take a traditional dev team months happens in days.",
+      "The $3,000/month subscription includes continuous evolution. As your business changes, Meta-Agent adapts — new workflows, new integrations, new optimizations — all through the same conversational interface. No change requests. No ticket queues. Just describe what you need.",
+      "This is built for transformation leaders who need speed and reliability. A production-grade agent system in days, not months — plus ongoing consulting to ensure it stays perfectly aligned with your business goals.",
     ],
   },
 ];

@@ -1,127 +1,168 @@
+export type CaseBlock =
+  | string
+  | { image: string; caption?: string }
+  | { video: string; caption?: string }
+  | { ref: string; label: string };
+
 export type CaseItem = {
   slug: string;
   title: string;
   description: string;
   industry: string;
-  body: string[];
+  problem: string[];
+  solution: CaseBlock[];
 };
 
 export const cases: CaseItem[] = [
   {
     slug: "guru",
-    title: "Guru — Auto Ad Placement Agent",
+    title: "Guru ｜ Auto Ad Placement Agent",
     description:
       "End-to-end automated ad ops for 50+ mobile games across every major platform.",
     industry: "Ads",
-    body: [
-      "Guru runs over 50 mobile game titles, each needing simultaneous ad placement across Google Ads, Meta Ads, and Apple Ads. Every platform, every title, every day — with fresh creatives constantly needed. The manual workload was crushing their growth.",
-      "We built an end-to-end agent that automates the entire ad operations pipeline in four stages:",
+    problem: [
+      "Guru Game runs over 50 mobile game titles across Google Ads, Meta Ads, and Apple Ads — each needing fresh creatives daily. Design teams spent days producing ad variations. Ad ops teams spent entire days manually uploading creatives platform by platform, title by title. The math simply didn't work.",
+      "They needed a system that could discover trending topics, generate matching creatives, place ads across every platform, and learn from performance data — all autonomously. And they needed it fast.",
+    ],
+    solution: [
+      "We designed and deployed a 4-stage end-to-end agent that transforms Guru Game's entire ad operations into a continuous improvement loop.",
 
-      "Stage 1 — Hot Topic Discovery. The agent crawls trending topics across the web in real time, surfacing actionable creative ideas that align with each game's audience. No more guessing what might work — the agent finds what's already working and adapts it.",
+      "Stage 1 — Hot Topic Discovery. The agent continuously filters RSS feeds across the web, surfacing trending topics and creative angles for each game's target audience. These signals flow into ggbond, our internal discovery engine that matches trends to specific game titles, generating actionable creative briefs around the clock. What used to be a creative team guessing at what might work is now a data-driven pipeline that finds what's already working and adapts it.",
 
-      "Stage 2 — Creative Generation. From each discovered idea, the agent generates high-quality ad images at scale. What used to take a design team days now happens in minutes, with hundreds of variations ready for testing.",
+      { image: "/cases/guru/ggbond-repo.png", caption: "ggbond — the internal discovery engine that matches RSS trends to game titles (closed source per client requirement)" },
+      { image: "/cases/guru/ggbond-repo-2.png", caption: "ggbond repo internals — the engine behind automated creative brief generation" },
 
-      "Stage 3 — Cross-Platform Placement. The agent handles the heavy lifting of uploading creatives to Google Ads, Meta Ads, and Apple Ads across all 50+ titles. A process that consumed entire teams is now a background operation.",
+      "Stage 2 — Creative Generation. From each brief, the agent produces high-quality ad creatives at scale — hundreds of variations ready for A/B testing in minutes. Work that previously consumed the design team's entire week now runs automatically.",
 
-      "Stage 4 — Analytics Feedback Loop. After placement, the agent ingests performance data from every platform, every title, every creative. It learns what's working and feeds those insights back into Stage 1 — closing the loop for continuous improvement.",
+      "Stage 3 — Cross-Platform Placement. The agent connects to ad platforms through MCP (Model Context Protocol) servers, automating campaign creation and creative upload across Google Ads and Meta Ads for all 50+ titles simultaneously. No more logging into three different dashboards and repeating the same flow for every single title.",
 
-      "Result: 10x ad operations throughput. The team went from drowning in manual uploads to focusing on strategy and creative direction.",
+      { ref: "https://github.com/googleads/google-ads-mcp", label: "google-ads-mcp" },
+      { ref: "https://github.com/pipeboard-co/meta-ads-mcp", label: "meta-ads-mcp" },
+
+      "To complete the operational picture, we integrated the agent with Feishu (Lark) for internal notifications and workflow coordination — built in the pre-lark-cli era by directly interfacing with Feishu's backend API.",
+
+      "Stage 4 — Analytics & Feedback. Performance data from every platform, every title, every creative flows into GF — our private deployment of Google Mixboard. The analytics engine identifies winning patterns and routes insights back to Stage 1, closing the loop. Every ad dollar spent makes the next one smarter.",
+
+      { ref: "https://github.com/KehaoC/GF", label: "GF — Google Mixboard private deployment" },
+
+      "We didn't just ship code remotely. We flew to the Guru Game office for on-site FDE (Foundational Deployment Engineering), ensuring the agent meshed with their real infrastructure, real workflows, and real constraints.",
+
+      { image: "/cases/guru/fde-photo.jpg", caption: "On-site FDE at Guru Game office (shared with employer consent)" },
+
+      { image: "/cases/guru/gurugame-site.png", caption: "Guru Game — gurugame.ai" },
+      { ref: "https://gurugame.ai/", label: "Guru Game" },
+
+      "The impact, measured:",
+
+      "ggbond became the idea engine for the entire creative team — serving ~30 people who now start every campaign with data-backed creative briefs instead of blank-page brainstorming.",
+
+      "GF Mixboard replaced Google Mixboard as the creative team's primary image generation platform, covering ~20 people. Creative generation efficiency: 10x.",
+
+      "The Guru Agent saves each ad optimizer 3 hours per day on creative uploads — time now spent on strategy, not data entry. Meanwhile, the system monitors the entire data platform in real time, flagging traffic anomalies 24/7 before a single dollar is wasted.",
+
+      "End result: the team's ad campaign cycle compressed from 7 days to 2 days. Not a marginal gain — a structural change in how fast a 50-title portfolio can move.",
     ],
   },
   {
     slug: "dianshi",
-    title: "Dianshi — Auto Video Editing Agent",
+    title: "点石 ｜ Auto Video Editing Agent",
     description:
-      "Automated viral video pipeline from template discovery to final cut.",
+      "Automated viral video pipeline — from template discovery to final cut, 3–4x editor throughput.",
     industry: "E-comm",
-    body: [
-      "Dianshi needs a constant stream of high-performing video ads for their e-commerce products. The manual editing pipeline — find references, write scripts, cut footage, add subtitles and music — was their biggest bottleneck.",
+    problem: [
+      "青岛点石文具 needs a constant stream of high-performing video ads for their extensive product catalog. The manual pipeline — find viral references, write scripts, cut footage, add subtitles and music — was their biggest bottleneck.",
+      "Each video editor in the Qingdao team could produce only 3 videos per day. With hundreds of SKUs to promote across multiple e-commerce platforms, the math didn't work. Products went without video support. Revenue was left on the table. The team needed to break through a throughput ceiling that manual workflows simply couldn't cross.",
+    ],
+    solution: [
+      "We built an automated video production agent on top of FireRed-OpenStoryline, an open-source video generation framework. Starting from a solid open-source foundation allowed us to deliver a production-ready system rapidly — and the client's requirements were extensive and specific:",
 
-      "We built an agent that automates the entire video production workflow:",
+      { image: "/cases/dianshi/requirements.png", caption: "点石视频自动化需求清单 — 涵盖从脚本到成片的完整 pipeline 需求" },
 
-      "First, the agent continuously scans the web for viral video templates in their niche, analyzing what makes each one work — the pacing, the hook, the transitions, the soundtrack.",
+      "Based on these requirements, we designed a modular system architecture. Each stage — template discovery, script generation, automated editing, subtitle generation, voiceover, and music layering — operates as an independent, tunable component. The team can adjust creative quality per stage without touching the rest of the pipeline.",
 
-      "From that analysis, it generates scripts tailored to Dianshi's product catalog and matches them against their library of raw footage.",
+      { image: "/cases/dianshi/architecture.jpg", caption: "点石 Agent 系统架构 — 模块化设计，每阶段独立可调" },
 
-      "Then the automated editing pipeline kicks in: subtitles are generated and synced, voiceovers are produced, cuts are made to match the template rhythm, and background music is layered in. The entire pipeline runs without human intervention.",
+      "The video below demonstrates the FireRed-OpenStoryline base system in action. This is the foundation we built upon and customized for 点石. The deployed version cannot be shown publicly due to confidentiality terms — but the core video generation capability is demonstrated here.",
 
-      "What used to take an editor a full day now takes minutes. The team reviews the final output rather than building it from scratch — shifting from production to curation.",
+      { video: "/cases/dianshi/demo.mp4", caption: "FireRed-OpenStoryline 基座 Demo（二次开发基座；定制版本因保密条款无法公开展示）" },
 
-      "Result: 10x video output. More creative variations tested, faster iteration on what works, and a content engine that scales with the business.",
+      { ref: "https://github.com/FireRedTeam/FireRed-OpenStoryline", label: "FireRed-OpenStoryline" },
+
+      "The agent integrates directly with the team's existing file storage and workflow tools. Editors don't need to learn a new system — output lands where they already work, ready for review and final polish.",
+
+      "The results, measured in the Qingdao team's own numbers:",
+
+      "Each video editor went from producing 3 videos per day to 10–12 videos per day. A 3–4x throughput increase per person — meaning the same team can now support the entire product catalog without hiring.",
+
+      "We achieved this while keeping token costs exceptionally low through a Token Plan strategy: critical creative decisions — script structure, hook design, pacing — route through top-tier models where quality matters most. Routine processing — subtitle generation, format conversion, music layering — uses cost-efficient secondary models. Every AI inference dollar is maximized for creative impact, not wasted on commodity tasks.",
+
+      { ref: "https://baike.baidu.com/item/%E9%9D%92%E5%B2%9B%E7%82%B9%E7%9F%B3%E6%96%87%E5%85%B7%E7%94%A8%E5%93%81%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/18876990", label: "青岛点石文具用品有限公司" },
     ],
   },
   {
     slug: "sysu-hospital",
-    title: "SYSU Cancer Center — Patient Triage Agent",
+    title: "SYSU Cancer Center ｜ Patient Triage Agent",
     description:
-      "WeChat triage system prioritizing critical patient messages — because minutes matter.",
+      "WeChat triage system for post-surgical cancer patients — because buried messages cost lives.",
     industry: "Health",
-    body: [
-      "A chief physician at Sun Yat-sen University Cancer Center faces a relentless stream of patient messages on WeChat. Questions about symptoms, treatment side effects, medication schedules — each one matters, but not all are equally urgent. He can't spend his entire day on his phone, and he shouldn't have to.",
+    problem: [
+      "After cancer surgery, many patients in China face a cruel reality: they can't afford extended hospitalization, so they go home. But complications don't stay in the hospital. A fever that might be nothing. A wound that won't heal. A pain that could be normal recovery — or a life-threatening infection.",
+      "These patients trust exactly one person: the chief physician who performed their surgery. Not an AI chatbot. Not a general practitioner. Their surgeon. When they can't get a response on WeChat — the doctor is in surgery, in rounds, with other patients — some travel hundreds of kilometers back to the hospital. Some kneel in the hallway outside the doctor's office, desperate for an answer to a message sent days ago.",
+      "The doctor, already stretched beyond human limits, finds these messages buried in an endless inbox. A patient asking about medication timing looks identical to a patient describing sepsis symptoms. Both are just unread WeChat messages. This wasn't just inefficient — it was dangerous. The cost of missing one critical message was unthinkable.",
+    ],
+    solution: [
+      "We built an AI agent connected to the physician's personal WeChat account, serving a chief physician at Sun Yat-sen University Cancer Center. On a regular schedule, the agent reads incoming patient messages, classifies each by clinical urgency, and produces a prioritized digest.",
 
-      "We connected an AI agent to his personal WeChat account. On a regular schedule, the agent reads incoming messages, classifies each one by urgency and topic, and produces a prioritized digest.",
+      "The agent understands enough clinical context to distinguish 'I feel a bit tired today' from 'My surgical wound is oozing and I have a 39°C fever' — and escalates accordingly. A patient with critical post-operative symptoms is flagged immediately and surfaced to the top. A routine medication refill question is batched for later review. The doctor opens a structured briefing instead of scrolling through an undifferentiated, anxiety-inducing list.",
 
-      "A patient reporting severe post-surgery symptoms gets flagged immediately. A routine medication question gets batched for later review. The agent understands medical context well enough to distinguish 'I feel a bit tired' from 'I can't breathe' — and escalates accordingly.",
+      "Due to patient privacy and medical data sensitivity, we cannot show the actual deployed system with real patient information. The screenshot below demonstrates the same triage logic using de-sensitized scenarios — built with wx-cli for WeChat integration and opencli for the agent orchestration layer.",
 
-      "The doctor now opens a structured briefing instead of scrolling through an anxiety-inducing message list. He sees what needs his attention right now, what can wait until rounds are done, and what a nurse or resident can handle.",
+      { image: "/cases/sysu-hospital/demo.jpg", caption: "去敏感场景 Demo — 基于 wx-cli 和 opencli 实现的微信消息分级系统（为保护患者隐私，使用脱敏测试数据）" },
 
-      "Result: 10x faster triage. Critical cases surface in minutes instead of hours. The doctor's message-processing time dropped from hours per day to a focused 15-minute review. And most importantly: no patient with a life-threatening condition gets buried in the inbox.",
+      { ref: "https://www.sysucc.org.cn/linchuangzhuanjia", label: "中山大学肿瘤防治中心" },
+
+      "The impact: the doctor's message-processing time dropped from hours of scrolling through WeChat every day to a focused 15-minute triage review. Critical post-surgical cases surface in minutes, not days.",
+
+      "But the real outcome isn't measured in time saved. It's measured in what no longer happens: no patient with a life-threatening post-surgical complication gets buried in the inbox. No one has to travel across the country and kneel in a hospital hallway to be heard. Behind the metrics are real people — patients who now get a response when it matters most.",
     ],
   },
   {
     slug: "cross-border",
-    title: "Cross-Border — Customer Win-Back Agent",
+    title: "Cross-Border ｜ Agent Team for Customer Win-Back",
     description:
-      "Instant WhatsApp engagement after purchase, slashing return rates.",
+      "A multi-agent team deployed on sloke.ai — division of labor, unified management, 60%+ return rate reduction.",
     industry: "CBEC",
-    body: [
+    problem: [
       "A cross-border e-commerce business runs an independent storefront with customers across multiple time zones. Orders come in at all hours — especially midnight in the customer's local time, when the merchant is asleep.",
-
-      "The problem: a customer places an order at 2 AM, gets no immediate confirmation or guidance, wakes up anxious, and by morning has already filed a dispute or requested a refund. Return rates were eating into margins.",
-
-      "We built an agent that steps in the moment an order is placed. No matter the time, the agent instantly adds the customer on WhatsApp and sends a warm, personalized message covering everything they need to know: order confirmation, how to track their package, estimated delivery timeline, and how to get help if needed.",
-
-      "The agent doesn't just send one message — it follows up at key milestones. When the package ships, the customer gets a notification. When it clears customs, another update. When it's out for delivery, a final heads-up.",
-
-      "The psychology is simple: anxiety drives returns. When customers feel informed and supported, they wait. They trust. They buy again.",
-
-      "Result: 10x reduction in post-purchase anxiety. Return rates dropped dramatically. Customer lifetime value increased. And the merchant sleeps through the night while the agent handles every order as if it were business hours.",
+      "The problem: a customer places an order at 2 AM, gets no immediate confirmation or guidance, wakes up anxious, and by morning has already filed a dispute or requested a refund. Return rates and dispute rates were eating into margins. Customer acquisition costs were being wasted on buyers who would never return.",
+      "A single customer service agent couldn't solve this — the problem spans time zones, languages, logistics tracking, and the psychology of buyer anxiety. It demanded a system, not a bot.",
     ],
-  },
-  {
-    slug: "red-content",
-    title: "RED — Social Content Agent",
-    description:
-      "Auto-discover trends, generate content, and build community on Xiaohongshu.",
-    industry: "Social",
-    body: [
-      "Building a presence on Xiaohongshu (RED) requires constant content output — trend spotting, drafting, editing, publishing, and engaging with comments. For small teams, this is a full-time job that never ends.",
+    solution: [
+      "Instead of a monolithic chatbot, we designed and deployed an agent team on sloke.ai — four specialized agents working in concert, each owning a distinct part of the customer journey. This architecture draws from the skill-based collaboration patterns in Alibaba's Accio Work framework, adapted for cross-border e-commerce.",
 
-      "Our agent automates the entire RED content engine. It continuously monitors trending topics and hashtags, identifying patterns that fit the brand's niche before they peak. From each trend, it generates platform-optimized content drafts — the right tone, the right structure, the right keywords.",
+      { image: "/cases/cross-border/01.png", caption: "Agent Team 管理面板 — 多 Agent 分工协作，统一调度与监控" },
 
-      "The agent schedules and publishes posts at data-driven optimal times, then stays engaged: responding to comments, answering product questions, and building the community while the team focuses on strategy and product.",
+      "The team operates in clearly defined roles:",
 
-      "It's not about spamming — the agent maintains a consistent, authentic brand voice. Every response sounds human because it's trained on the brand's actual communication style.",
+      "Order Guardian — activates within seconds of an order being placed. Adds the customer on WhatsApp and delivers a warm, personalized confirmation with tracking info, delivery timeline, and a direct help channel. No matter the time zone, no matter the language. Response time: under 30 seconds, 24/7.",
 
-      "Result: 10x content output. A presence that would require a 3-person social team runs with one person overseeing the agent. More posts, more engagement, more customers — without burning out the team.",
-    ],
-  },
-  {
-    slug: "beauty-salon",
-    title: "Beauty Salon — Client Experience Agent",
-    description:
-      "Automated booking, recommendations, and follow-ups that keep clients returning.",
-    industry: "Beauty",
-    body: [
-      "A beauty salon lives and dies by client retention. But the work of keeping clients engaged — booking confirmations, personalized recommendations, birthday offers, post-treatment follow-ups — is endless administrative overhead that pulls owners away from what they do best.",
+      "Logistics Tracker — monitors every shipping milestone (dispatch, customs clearance, last-mile delivery) and pushes proactive updates. The customer never wonders where their package is. Anxiety drops before it has a chance to build.",
 
-      "We built an agent that handles the entire client experience lifecycle. When a client messages to book, the agent checks availability, confirms the appointment, and sends a calendar invite — no back-and-forth, no missed messages.",
+      { image: "/cases/cross-border/02.png", caption: "Agent 协作工作流 — 订单触发 → 客服响应 → 物流追踪 → 主动干预" },
 
-      "Before each appointment, the agent sends personalized preparation instructions based on the treatment type and the client's history. After the appointment, it follows up to check satisfaction, gather feedback, and recommend next treatments based on what's worked well before.",
+      "Risk Monitor — analyzes sentiment and behavioral signals in real time to detect early signs of buyer's remorse or confusion. Before a dispute is filed, the agent triggers a personalized intervention: additional product information, a reassurance message, or an escalation to human support when the situation requires empathy beyond AI's reach.",
 
-      "The agent remembers everything: which treatments each client prefers, when they last visited, their skin type or preferences, even personal details like birthdays. It uses this to send timely, relevant re-engagement messages that feel personal — not automated.",
+      "Trust Builder — follows up post-delivery with care instructions, usage tips, and complementary product suggestions based on purchase history. Not spam — timely, relevant information timed to the moment the customer is most engaged with the product.",
 
-      "Result: 10x client engagement capacity. The salon owner went from spending 3 hours a day on admin to 20 minutes reviewing the agent's summary. Booking no-shows dropped. Repeat visits increased. And clients consistently comment on how attentive the service feels.",
+      { image: "/cases/cross-border/03.png", caption: "数据分析面板 — 实时监控客户响应率、退货率、LTV 变化趋势" },
+
+      "All four agents are managed through a unified control panel on sloke.ai. The merchant sees every interaction, can adjust messaging tone and escalation rules, and can override any agent decision. The agents learn from every interaction — continuously improving accuracy and personalization across the team.",
+
+      "The results:",
+
+      "Return rate dropped by over 60%. Dispute rate fell to near zero. Customer lifetime value increased as one-time buyers who felt supported became repeat purchasers — without any discounting or margin sacrifice.",
+
+      "Cost-wise, this agent team replaced what would have required a 5-person customer service team working in rotating shifts to cover all time zones. The monthly operational cost is a fraction of a single full-time hire — and the agents don't sleep, don't get sick, and don't forget to follow up.",
     ],
   },
 ];

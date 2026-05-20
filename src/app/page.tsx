@@ -17,18 +17,20 @@ const serviceItems: ListItem[] = services.map((s) => ({
   meta: ""
 }));
 
-const caseItems: ListItem[] = cases.map((c) => ({
-  group: c.industry,
-  title: c.title,
-  description: c.description,
-  href: `/case/${c.slug}`,
-  meta: ""
-}));
-
-const contacts = [
-  { label: "Email", href: "mailto:kyriecai.me@gmail.com" },
-  { label: "X", href: "https://x.com/triody" },
-  { label: "GitHub", href: "https://github.com/triody" }
+const caseItems: ListItem[] = [
+  ...cases.map((c) => ({
+    group: c.industry,
+    title: c.title,
+    description: c.description,
+    href: `/case/${c.slug}`,
+    meta: ""
+  })),
+  {
+    title: "More...",
+    description: "Additional cases — get in touch for details.",
+    href: "",
+    meta: ""
+  }
 ];
 
 function BasicLink({
@@ -120,32 +122,77 @@ export default function Home() {
         </p>
 
         <p>
-          15-minute diagnostic. One-week deployment. Ten-year guarantee.
+          15-minute diagnostic. One-week deployment. Production-grade agents.
         </p>
 
         <p>
           Get in touch:{" "}
-          {contacts.map((contact, index) => (
-            <span key={contact.label}>
-              <BasicLink href={contact.href}>{contact.label}</BasicLink>
-              {index < contacts.length - 1 ? ", " : "."}
-            </span>
-          ))}
+          <BasicLink href="mailto:kyriecai.me@gmail.com">kyriecai.me@gmail.com</BasicLink>
         </p>
       </article>
 
       <PostList title="Services" items={serviceItems} />
-      <PostList title="Cases" items={caseItems} />
+      <PostList title="Selected Cases" items={caseItems} />
 
-      <section className="participants" aria-labelledby="contact-title">
-        <h2 id="contact-title" className="section-title">
-          Contact
+      <section className="team-section" aria-labelledby="team-title">
+        <h2 id="team-title" className="section-title">
+          Team
         </h2>
-        <div className="participants-stack">
-          <p style={{ fontSize: "0.875rem", fontWeight: 460, color: "var(--muted)", letterSpacing: "-0.00563rem", lineHeight: "1.25rem" }}>
-            <BasicLink href="mailto:kyriecai.me@gmail.com">kyriecai.me@gmail.com</BasicLink>
-          </p>
+
+        <div className="team-founders">
+          <div className="team-founder">
+            <img
+              src="/team/kyriecai.jpg"
+              alt="Kyriecai"
+              className="team-avatar"
+            />
+            <div className="team-founder-info">
+              <span className="team-name">Kyriecai</span>
+              <span className="team-role">Founder</span>
+              <span className="team-contact">
+                <BasicLink href="mailto:kyriecai.me@gmail.com">kyriecai.me@gmail.com</BasicLink>
+              </span>
+              <span className="team-social">
+                <BasicLink href="https://xhslink.com/m/5ollow7Ij4d">Xiaohongshu</BasicLink>
+              </span>
+            </div>
+          </div>
+
+          <div className="team-founder">
+            <img
+              src="/team/samuelwang.jpg"
+              alt="Samuel Wang"
+              className="team-avatar"
+            />
+            <div className="team-founder-info">
+              <span className="team-name">Chaoyu Wang</span>
+              <span className="team-role">Founder</span>
+              <span className="team-contact">
+                <BasicLink href="mailto:samuelwang997@gmail.com">samuelwang997@gmail.com</BasicLink>
+              </span>
+              <span className="team-social">
+                <BasicLink href="https://xhslink.com/m/2hHbDUNzmaV">Xiaohongshu</BasicLink>
+              </span>
+            </div>
+          </div>
         </div>
+
+        <p className="team-desc">
+          Our team brings together undergraduate, master's, and PhD talent from
+          the National University of Singapore, UC Berkeley, Northwestern
+          University, Sun Yat-sen University, Renmin University of China, and
+          Shanghai Jiao Tong University. Every member operates with strong
+          initiative — we listen hard, understand deeply, and deliver with
+          uncompromising quality.
+        </p>
+
+        <p className="team-desc">
+          Our ranks include members of China's National Excellence Program 2.0,
+          initiators of Launchpad S1, and published authors at AAAI and other
+          top-tier venues. Our expertise spans agentic engines, AI
+          infrastructure, AI for Science, and embodied intelligence — giving us
+          the depth to build what others can only demo.
+        </p>
       </section>
     </main>
   );
