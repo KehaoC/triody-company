@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { ClientLocaleProvider } from "@/components/locale-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     description: "Triody deploys AI agents that 10x your business. 15-minute diagnostic. One-week deployment. Ten-year guarantee."
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: "/favicon-new.png",
   }
 };
 
@@ -34,7 +35,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ClientLocaleProvider>
+          {children}
+        </ClientLocaleProvider>
+      </body>
     </html>
   );
 }
